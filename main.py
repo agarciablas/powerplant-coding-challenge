@@ -35,8 +35,9 @@ def productionplan(payload: dict = Body(...)):
             if unassigned >= p['pmin']:
                 plants.loc[index,'p']=unassigned
                 unassigned=0
-
-     # Return the production planning       
+    
+    
+    # Return the production planning       
     return plants[['name','p']].to_dict(orient='records')
 
 if __name__ == "__main__":
