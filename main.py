@@ -7,9 +7,9 @@ app = FastAPI()
 @app.post("/productionplan")
 def productionplan(payload: dict = Body(...)):
 
-    #get hourly demand from payload
+    # Get hourly demand from payload
     load=payload['load']
-    #
+    # Load de power plants in a frame
     plants=pd.json_normalize(payload["powerplants"])
     # Adjust pmax according to wind forecast
     plants.loc[plants.type=='windturbine','pmax'] = plants.loc[plants.type=='windturbine','pmax'] * payload['fuels']['wind(%)']/100 
@@ -35,8 +35,8 @@ def productionplan(payload: dict = Body(...)):
             if unassigned >= p['pmin']:
                 plants.loc[index,'p']=unassigned
                 unassigned=0
-    
-    
+    # Round to 1 decimal the final schedule 
+    plants['p']=plants['p'].round(1)
     # Return the production planning       
     return plants[['name','p']].to_dict(orient='records')
 
