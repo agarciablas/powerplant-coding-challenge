@@ -24,7 +24,7 @@ docker build -t productionplan .
 Run a container based on this image:
 
 ```bash
-docker run -d --name container -p 8888:8888 productionplan
+docker run -d --name container -p 8888 productionplan
 ```
 #
 ## POST
