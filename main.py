@@ -9,7 +9,7 @@ def productionplan(payload: dict = Body(...)):
 
     # Get hourly demand from payload
     load=payload['load']
-    # Load de power plants in a frame
+    # Load power plants in a frame
     plants=pd.json_normalize(payload["powerplants"])
     # Adjust pmax according to wind forecast
     plants.loc[plants.type=='windturbine','pmax'] = plants.loc[plants.type=='windturbine','pmax'] * payload['fuels']['wind(%)']/100 
